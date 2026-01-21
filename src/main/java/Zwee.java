@@ -75,7 +75,8 @@ public class Zwee {
                 case "event" -> {
                     String[] parts = input.substring(6).split(" /from ");
                     String description = parts[0].trim();
-                    String startDate = parts[1].trim();
+                    String Dates = parts[1].trim();
+                    String startDate = Dates.split(" /to ")[0].trim();
                     String endDate = parts[1].split(" /to ")[1].trim();
                     Task task = new Event(description, startDate, endDate);
                     tasklist.addTask(task);
