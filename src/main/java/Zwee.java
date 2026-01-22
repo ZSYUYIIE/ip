@@ -22,7 +22,7 @@ public class Zwee {
         Scanner scanner = new Scanner(System.in);
 
         while (!isExit) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             switch (input) {
                 case "bye" -> {
                     System.out.println("Bye. Hope to see you again soon!");
@@ -41,22 +41,44 @@ public class Zwee {
             switch (input.split(" ")[0]) {
                 case "mark" -> {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]);
-                    if (taskNumber > 0 && taskNumber <= tasklist.getTaskCount()) {
-                        tasklist.mark(taskNumber);
-                        System.out.println("Nice! I've marked this task as done:\n  " + tasklist.getTask(taskNumber - 1));
-                    } 
+                    try {
+                        if (taskNumber <= 0 || taskNumber > tasklist.getTaskCount()) {
+                            throw new IndexOutOfBoundsException();
+                        }
+                        if (taskNumber > 0 && taskNumber <= tasklist.getTaskCount()) {
+                            tasklist.mark(taskNumber);
+                            System.out.println("Nice! I've marked this task as done:\n  " + tasklist.getTask(taskNumber - 1));
+                        } 
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("OOPS!!! The task number you entered is invalid.");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     continue;
                 }
 
                 case "unmark" -> {
                     int taskNumber = Integer.parseInt(input.split(" ")[1]);
-                    if (taskNumber > 0 && taskNumber <= tasklist.getTaskCount()) {
-                        tasklist.unmark(taskNumber);
-                        System.out.println("OK, I've marked this task as not done yet:\n  " + tasklist.getTask(taskNumber - 1));
-                    } 
+                    try {
+                        if (taskNumber <= 0 || taskNumber > tasklist.getTaskCount()) {
+                            throw new IndexOutOfBoundsException();
+                        }
+                        if (taskNumber > 0 && taskNumber <= tasklist.getTaskCount()) {
+                            tasklist.unmark(taskNumber);
+                            System.out.println("OK, I've marked this task as not done yet:\n  " + tasklist.getTask(taskNumber - 1));
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("OOPS!!! The task number you entered is invalid.");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     continue;
                 }
                 case "todo" -> {
+                    if (input.length() <= 5 || input.substring(5).trim().isEmpty()) {
+                        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                        continue;
+                    }
                     String description = input.substring(5).trim();
                     Task task = new Todo(description);
                     tasklist.addTask(task);
@@ -64,6 +86,14 @@ public class Zwee {
                     continue;
                 }
                 case "deadline" -> {
+                    if (input.length() <= 9 || input.substring(9).trim().isEmpty()) {
+                        System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+                        continue;
+                    }
+                    if (!input.contains(" /by ")) {
+                        System.out.println("OOPS!!! The deadline must have a /by date.");
+                        continue;
+                    }
                     String[] parts = input.substring(9).split(" /by ");
                     String description = parts[0].trim();
                     String date = parts[1].trim();
@@ -73,6 +103,18 @@ public class Zwee {
                     continue;
                 }
                 case "event" -> {
+                    if (input.length() <= 6 || input.substring(6).trim().isEmpty()) {
+                        System.out.println("OOPS!!! The description of an event cannot be empty.");
+                        continue;
+                    }
+                    if (!input.contains(" /from ") || !input.contains(" /to ")) {
+                        System.out.println("OOPS!!! The event must have a /from and /to date.");
+                        continue;
+                    }
+                    if (input.indexOf(" /to ") < input.indexOf(" /from ")) {
+                        System.out.println("OOPS!!! The /to date must come after the /from date.");
+                        continue;
+                    }
                     String[] parts = input.substring(6).split(" /from ");
                     String description = parts[0].trim();
                     String Dates = parts[1].trim();
@@ -83,9 +125,10 @@ public class Zwee {
                     printTasks(task);
                     continue;
                 }
-            }
-            tasklist.addTask(new Task(input));
-            System.out.println("added: " + input);
+                default -> {
+                    System.out.println("OOPS!!! Please enter a valid command among todo, deadline, event, mark, unmark, list, bye.");
+                }
+            }   
         }
         scanner.close();
     }
