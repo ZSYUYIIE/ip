@@ -125,6 +125,23 @@ public class Zwee {
                     printTasks(task);
                     continue;
                 }
+                case "delete" -> {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    try {
+                        if (taskNumber <= 0 || taskNumber > tasklist.getTaskCount()) {
+                            throw new IndexOutOfBoundsException();
+                        }
+                        Task removedTask = tasklist.getTask(taskNumber - 1);
+                        tasklist.deleteTask(taskNumber);
+                        System.out.println("Noted. I've removed this task:\n  " + removedTask
+                                + "\nNow you have " + tasklist.getTaskCount() + " tasks in the list.");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("OOPS!!! The task number you entered is invalid.");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    continue;
+                }
                 default -> {
                     System.out.println("OOPS!!! Please enter a valid command among todo, deadline, event, mark, unmark, list, bye.");
                 }

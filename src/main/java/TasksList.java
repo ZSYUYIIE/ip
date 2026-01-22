@@ -30,4 +30,12 @@ public class TasksList {
     public int getTaskCount() {
         return taskCount;
     }
+
+    public void deleteTask(int taskNumber) {
+        for (int i = taskNumber - 1; i < taskCount - 1; i++) {
+            tasks[i] = tasks[i + 1];
+        }
+        tasks[taskCount - 1] = null;
+        taskCount--;
+    }
 }
