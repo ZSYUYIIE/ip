@@ -14,6 +14,10 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description; 
+    }
     
     @Override
     public String toString() {
