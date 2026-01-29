@@ -1,9 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String date;
+    private String dateString;
+    private LocalDate date;
 
     public Deadline(String description, String date) {
         super(description);
-        this.date = date;
+        try {
+            this.date = LocalDate.parse(date);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid date format. Please use YYYY-MM-DD.");
+        }
+        this.dateString = this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     public String toFileString() {
@@ -12,6 +21,6 @@ public class Deadline extends Task {
     
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
+        return "[D]" + super.toString() + " (by: " + dateString + ")";
     }
 }
