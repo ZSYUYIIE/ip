@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Zwee {
     private static TasksList taskList = new TasksList();
@@ -105,13 +107,17 @@ public class Zwee {
                         System.out.println("OOPS!!! The deadline must have a /by date.");
                         continue;
                     }
-                    String[] parts = input.substring(9).split(" /by ");
-                    String description = parts[0].trim();
-                    String date = parts[1].trim();
-                    Task task = new Deadline(description, date);
-                    taskList.addTask(task);
-                    storage.saveTasks(taskList);
-                    printTasks(task);
+                    try {
+                        String[] parts = input.substring(9).split(" /by ");
+                        String description = parts[0].trim();
+                        String date = parts[1].trim();
+                        Task task = new Deadline(description, date);
+                        taskList.addTask(task);
+                        storage.saveTasks(taskList);
+                        printTasks(task);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+                    }
                     continue;
                 }
                 case "event" -> {
@@ -127,15 +133,24 @@ public class Zwee {
                         System.out.println("OOPS!!! The /to date must come after the /from date.");
                         continue;
                     }
-                    String[] parts = input.substring(6).split(" /from ");
-                    String description = parts[0].trim();
-                    String Dates = parts[1].trim();
-                    String startDate = Dates.split(" /to ")[0].trim();
-                    String endDate = parts[1].split(" /to ")[1].trim();
-                    Task task = new Event(description, startDate, endDate);
-                    taskList.addTask(task);
-                    storage.saveTasks(taskList);
-                    printTasks(task);
+                    if (input.split(" /from ").length < 2 || input.split(" /from ")[1].split(" /to ").length < 2) {
+                        System.out.println("OOPS!!! The event must have both /from and /to dates.");
+                        continue;
+                    }
+                    try {
+                        String[] parts = input.substring(6).split(" /from ");
+                        String description = parts[0].trim();
+                        String Dates = parts[1].trim();
+                        String startDate = Dates.split(" /to ")[0].trim();
+                        String endDate = parts[1].split(" /to ")[1].trim();
+                        Task task = new Event(description, startDate, endDate);
+                        taskList.addTask(task);
+                        storage.saveTasks(taskList);
+                        printTasks(task);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+                        continue;
+                    }
                     continue;
                 }
                 case "delete" -> {
