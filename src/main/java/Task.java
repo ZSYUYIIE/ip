@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -14,6 +14,7 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+
 
     public String toFileString() {
         return (isDone ? "1" : "0") + " | " + description; 
