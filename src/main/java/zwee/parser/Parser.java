@@ -81,7 +81,7 @@ public class Parser {
         String[] parts = trimmed.split(DELIMITER_SPACE, SPLIT_LIMIT_TWO);
         String keyword = parts[0];
         String args = (parts.length < 2) ? "" : parts[1].trim();
-        return new String[]{keyword, args};
+        return new String[] {keyword, args};
     }
 
     private static Command parseTodo(String args) {

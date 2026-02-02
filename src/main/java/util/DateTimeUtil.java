@@ -7,6 +7,10 @@ import java.time.format.DateTimeParseException;
 
 import zwee.ZweeException;
 
+/**
+ * Utility class for handling date and time parsing and formatting.
+ */
+
 public class DateTimeUtil {
 
     private static final DateTimeFormatter USER_ISO_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");

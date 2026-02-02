@@ -6,6 +6,10 @@ import task.TaskList;
 import task.Todo;
 import zwee.ui.Ui;
 
+/**
+ * Adds a todo task to the task list.
+ */
+
 public class AddTodoCommand extends Command {
 
     private final String description;

@@ -4,6 +4,10 @@ import java.util.List;
 
 import zwee.ZweeException;
 
+/**
+ * Represents a list of tasks.
+ */
+
 public class TaskList {
 
     private final List<Task> tasks;
@@ -58,7 +62,8 @@ public class TaskList {
     private int toZeroBasedIndex(int oneBasedIndex) {
         int index = oneBasedIndex - 1;
         if (index < 0 || index >= tasks.size()) {
-            throw new ZweeException("Please enter a valid task number between 1 and " + tasks.size() + ".");
+            throw new ZweeException("Please enter a valid task number between 1 and " + 
+            tasks.size() + ".");
         }
         return index;
     }

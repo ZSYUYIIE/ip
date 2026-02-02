@@ -7,6 +7,9 @@ import task.Task;
 import task.TaskList;
 import zwee.ui.Ui;
 
+/**
+ * Adds an event task to the task list.
+ */
 public class AddEventCommand extends Command {
 
     private final String description;

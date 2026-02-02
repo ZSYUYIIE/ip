@@ -3,6 +3,10 @@ import java.time.LocalDate;
 
 import util.DateTimeUtil;
 
+/**
+ * Represents an event task with a from and to date.
+ */
+
 public class Event extends Task {
 
     private final LocalDate start;

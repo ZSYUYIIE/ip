@@ -4,6 +4,9 @@ import storage.Storage;
 import task.TaskList;
 import zwee.ui.Ui;
 
+/**
+ * Exits the Zwee application.
+ */
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

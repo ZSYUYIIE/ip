@@ -5,6 +5,9 @@ import task.Task;
 import task.TaskList;
 import zwee.ui.Ui;
 
+/**
+ * Marks a task as completed in the task list.
+ */
 public class MarkCommand extends Command {
 
     private final int oneBasedIndex;

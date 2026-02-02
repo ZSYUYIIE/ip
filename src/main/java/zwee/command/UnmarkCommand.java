@@ -5,6 +5,9 @@ import task.Task;
 import task.TaskList;
 import zwee.ui.Ui;
 
+/**
+ * Unmarks a task as not completed in the task list.
+ */
 public class UnmarkCommand extends Command {
 
     private final int oneBasedIndex;

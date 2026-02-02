@@ -1,4 +1,9 @@
 package task;
+
+/**
+ * Represents a todo task with a description and no dates.
+ */
+
 public class Todo extends Task {
 
     public Todo(String description) {
