@@ -14,7 +14,7 @@ public class Zwee {
 
     public void run() {
         ui.showWelcome();
-
+        ui.showList(tasks);
         boolean isExit = false;
         while (!isExit) {
             try {

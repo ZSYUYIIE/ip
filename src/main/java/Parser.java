@@ -1,10 +1,14 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+/**
+ * Parses user commands and stored task lines.
+ */
 public class Parser {
 
     private static final String DELIMITER_SPACE = " ";
     private static final String SECTION_SEPARATOR = " \\| ";
     private static final int SPLIT_LIMIT_TWO = 2;
+    private static final int SPLIT_LIMIT_THREE = 3;
 
     private static final String CMD_BYE = "bye";
     private static final String CMD_LIST = "list";
@@ -16,8 +20,17 @@ public class Parser {
     private static final String CMD_DELETE = "delete";
 
     private static final String TAG_BY = "/by";
-    private static final String TAG_AT = "/at";
+    private static final String TAG_FROM = "/from";
+    private static final String TAG_TO = "/to";
+    private static final String EVENT_DATE_SEPARATOR = "\\|";
+    private static final int EVENT_PARTS_EXPECTED = 2;
 
+    /**
+     * Parses user input into a Command.
+     *
+     * @param input Full user input string.
+     * @return Corresponding Command object.
+     */
     public static Command parse(String input) {
         String trimmed = input.trim();
 
@@ -40,11 +53,11 @@ public class Parser {
         case CMD_EVENT:
             return parseEvent(args);
         case CMD_MARK:
-            return new MarkCommand(parseIndex(args, "mark"));
+            return new MarkCommand(parseIndex(args, CMD_MARK));
         case CMD_UNMARK:
-            return new UnmarkCommand(parseIndex(args, "unmark"));
+            return new UnmarkCommand(parseIndex(args, CMD_UNMARK));
         case CMD_DELETE:
-            return new DeleteCommand(parseIndex(args, "delete"));
+            return new DeleteCommand(parseIndex(args, CMD_DELETE));
         default:
             throw new ZweeException("Unknown command: " + keyword);
         }
@@ -65,23 +78,36 @@ public class Parser {
     }
 
     private static Command parseDeadline(String args) {
-        String[] parts = splitOnTag(args, TAG_BY, "deadline format: deadline <description> /by <date>");
+        String[] parts = splitOnTag(args, TAG_BY,
+                "deadline format: deadline <description> /by <date>");
         String description = parts[0];
         String byRaw = parts[1];
 
-        LocalDateTime by = DateTimeUtil.parseUserDateTime(byRaw);
-        boolean hasTime = DateTimeUtil.userInputHasTime(byRaw);
-        return new AddDeadlineCommand(description, by, hasTime);
+        LocalDate by = DateTimeUtil.parseUserDate(byRaw);
+        return new AddDeadlineCommand(description, by);
     }
 
+    /**
+     * Parses event in the form: event <desc> /at <startDate> | <endDate>
+     */
     private static Command parseEvent(String args) {
-        String[] parts = splitOnTag(args, TAG_AT, "event format: event <description> /at <date/time>");
-        String description = parts[0];
-        String atRaw = parts[1];
+        String[] firstSplit = splitOnTag(args, TAG_FROM,
+                "event format: event <description> /from <startDate> /to <endDate>");
+        String description = firstSplit[0];
+        String afterFrom = firstSplit[1];
 
-        LocalDateTime at = DateTimeUtil.parseUserDateTime(atRaw);
-        boolean hasTime = DateTimeUtil.userInputHasTime(atRaw);
-        return new AddEventCommand(description, at, hasTime);
+        String[] secondSplit = splitOnTag(afterFrom, TAG_TO,
+                "event format: event <description> /from <startDate> /to <endDate>");
+        String startRaw = secondSplit[0];
+        String endRaw = secondSplit[1];
+
+        LocalDate start = DateTimeUtil.parseUserDate(startRaw);
+        LocalDate end = DateTimeUtil.parseUserDate(endRaw);
+
+        if (end.isBefore(start)) {
+            throw new ZweeException("Event end date cannot be before start date.");
+        }
+        return new AddEventCommand(description, start, end);
     }
 
     private static String[] splitOnTag(String args, String tag, String errorMessage) {
@@ -89,6 +115,7 @@ public class Parser {
         if (parts.length < 2) {
             throw new ZweeException(errorMessage);
         }
+
         String description = parts[0].trim();
         String datePart = parts[1].trim();
 
@@ -109,6 +136,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a stored line (e.g., "D | 0 | return book | 2021-01-05") into a Task.
+     *
+     * @param line One line from the save file.
+     * @return Parsed Task.
+     */
     public static Task parseStoredTask(String line) {
         String[] parts = line.split(SECTION_SEPARATOR);
         if (parts.length < 3) {
@@ -129,15 +162,15 @@ public class Parser {
         case "T":
             return new Todo(description);
         case "D":
-            if (parts.length < 4) {
+            if (parts.length != 4) {
                 throw new ZweeException("Corrupted deadline entry.");
             }
             return Deadline.fromStorage(description, parts[3].trim());
         case "E":
-            if (parts.length < 4) {
+            if (parts.length != 5) {
                 throw new ZweeException("Corrupted event entry.");
             }
-            return Event.fromStorage(description, parts[3].trim());
+            return Event.fromStorage(description, parts[3].trim(), parts[4].trim());
         default:
             throw new ZweeException("Unknown task type in storage: " + type);
         }

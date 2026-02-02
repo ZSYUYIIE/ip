@@ -1,20 +1,20 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AddEventCommand extends Command {
 
     private final String description;
-    private final LocalDateTime at;
-    private final boolean hasTime;
+    private final LocalDate start;
+    private final LocalDate end;
 
-    public AddEventCommand(String description, LocalDateTime at, boolean hasTime) {
+    public AddEventCommand(String description, LocalDate start, LocalDate end) {
         this.description = description;
-        this.at = at;
-        this.hasTime = hasTime;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task task = new Event(description, at, hasTime);
+        Task task = new Event(description, start, end);
         tasks.add(task);
         storage.save(tasks);
         ui.showTaskAdded(task, tasks.size());
