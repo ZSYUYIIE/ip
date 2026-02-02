@@ -1,4 +1,11 @@
+package zwee.command;
 import java.time.LocalDate;
+
+import storage.Storage;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import zwee.ui.Ui;
 
 public class AddEventCommand extends Command {
 

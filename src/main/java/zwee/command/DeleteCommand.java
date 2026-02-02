@@ -1,3 +1,10 @@
+package zwee.command;
+
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import zwee.ui.Ui;
+
 public class DeleteCommand extends Command {
 
     private final int oneBasedIndex;

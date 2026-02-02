@@ -1,4 +1,21 @@
+package zwee.parser;
 import java.time.LocalDate;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+import util.DateTimeUtil;
+import zwee.ZweeException;
+import zwee.command.AddDeadlineCommand;
+import zwee.command.AddEventCommand;
+import zwee.command.AddTodoCommand;
+import zwee.command.Command;
+import zwee.command.DeleteCommand;
+import zwee.command.ExitCommand;
+import zwee.command.ListCommand;
+import zwee.command.MarkCommand;
+import zwee.command.UnmarkCommand;
 
 /**
  * Parses user commands and stored task lines.
@@ -8,7 +25,6 @@ public class Parser {
     private static final String DELIMITER_SPACE = " ";
     private static final String SECTION_SEPARATOR = " \\| ";
     private static final int SPLIT_LIMIT_TWO = 2;
-    private static final int SPLIT_LIMIT_THREE = 3;
 
     private static final String CMD_BYE = "bye";
     private static final String CMD_LIST = "list";
@@ -22,8 +38,6 @@ public class Parser {
     private static final String TAG_BY = "/by";
     private static final String TAG_FROM = "/from";
     private static final String TAG_TO = "/to";
-    private static final String EVENT_DATE_SEPARATOR = "\\|";
-    private static final int EVENT_PARTS_EXPECTED = 2;
 
     /**
      * Parses user input into a Command.
@@ -59,7 +73,7 @@ public class Parser {
         case CMD_DELETE:
             return new DeleteCommand(parseIndex(args, CMD_DELETE));
         default:
-            throw new ZweeException("Unknown command: " + keyword);
+            throw new ZweeException("OOPS, please type a valid command: " + keyword);
         }
     }
 
@@ -72,14 +86,14 @@ public class Parser {
 
     private static Command parseTodo(String args) {
         if (args.isEmpty()) {
-            throw new ZweeException("todo format: todo <description>");
+            throw new ZweeException("Please enter todo format: todo <description>");
         }
         return new AddTodoCommand(args);
     }
 
     private static Command parseDeadline(String args) {
         String[] parts = splitOnTag(args, TAG_BY,
-                "deadline format: deadline <description> /by <date>");
+                "Please enter deadline format: deadline <description> /by <date>");
         String description = parts[0];
         String byRaw = parts[1];
 
@@ -92,12 +106,12 @@ public class Parser {
      */
     private static Command parseEvent(String args) {
         String[] firstSplit = splitOnTag(args, TAG_FROM,
-                "event format: event <description> /from <startDate> /to <endDate>");
+                "Please enter event format: event <description> /from <startDate> /to <endDate>");
         String description = firstSplit[0];
         String afterFrom = firstSplit[1];
 
         String[] secondSplit = splitOnTag(afterFrom, TAG_TO,
-                "event format: event <description> /from <startDate> /to <endDate>");
+                "Please enter event format: event <description> /from <startDate> /to <endDate>");
         String startRaw = secondSplit[0];
         String endRaw = secondSplit[1];
 
@@ -127,12 +141,12 @@ public class Parser {
 
     private static int parseIndex(String args, String commandWord) {
         if (args.isEmpty()) {
-            throw new ZweeException(commandWord + " format: " + commandWord + " <task number>");
+            throw new ZweeException("Please enter " + commandWord + " format: " + commandWord + " <task number>");
         }
         try {
             return Integer.parseInt(args.trim());
         } catch (NumberFormatException e) {
-            throw new ZweeException("Task number must be an integer.");
+            throw new ZweeException("Please enter an integer.");
         }
     }
 

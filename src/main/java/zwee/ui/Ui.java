@@ -1,4 +1,8 @@
+package zwee.ui;
 import java.util.Scanner;
+
+import task.Task;
+import task.TaskList;
 
 public class Ui {
 
@@ -7,7 +11,7 @@ public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Zwee 🐦");
+        System.out.println("Hello! I'm Zwee");
         System.out.println("What can I do for you?");
         showLine();
     }

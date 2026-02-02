@@ -1,4 +1,11 @@
+package zwee.command;
 import java.time.LocalDate;
+
+import storage.Storage;
+import task.Deadline;
+import task.Task;
+import task.TaskList;
+import zwee.ui.Ui;
 
 /**
  * Adds a deadline task to the task list.

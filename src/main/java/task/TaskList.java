@@ -1,5 +1,8 @@
+package task;
 import java.util.ArrayList;
 import java.util.List;
+
+import zwee.ZweeException;
 
 public class TaskList {
 
@@ -55,7 +58,7 @@ public class TaskList {
     private int toZeroBasedIndex(int oneBasedIndex) {
         int index = oneBasedIndex - 1;
         if (index < 0 || index >= tasks.size()) {
-            throw new ZweeException("Task number is out of range.");
+            throw new ZweeException("Please enter a valid task number between 1 and " + tasks.size() + ".");
         }
         return index;
     }

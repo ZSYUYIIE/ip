@@ -1,3 +1,11 @@
+package zwee;
+
+import storage.Storage;
+import task.TaskList;
+import zwee.command.Command;
+import zwee.parser.Parser;
+import zwee.ui.Ui;
+
 public class Zwee {
 
     private static final String DEFAULT_FILE_PATH = "data/zwee.txt";
