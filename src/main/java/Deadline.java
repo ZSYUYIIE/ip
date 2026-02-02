@@ -1,26 +1,30 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    private String dateString;
-    private LocalDate date;
 
-    public Deadline(String description, String date) {
+    private final LocalDateTime by;
+    private final boolean hasTime;
+
+    public Deadline(String description, LocalDateTime by, boolean hasTime) {
         super(description);
-        try {
-            this.date = LocalDate.parse(date);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid date format. Please use YYYY-MM-DD.");
-        }
-        this.dateString = this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        this.by = by;
+        this.hasTime = hasTime;
     }
 
-    public String toFileString() {
-        return "D | " + super.toFileString() + " | " + date;
-    } 
-    
+    public static Deadline fromStorage(String description, String storedDateTime) {
+        LocalDateTime dateTime = DateTimeUtil.parseStorageDateTime(storedDateTime);
+        boolean hasTime = DateTimeUtil.parseStorageHasTime(storedDateTime);
+        return new Deadline(description, dateTime, hasTime);
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dateString + ")";
+        return "[D]" + super.toString() + " (by: " + DateTimeUtil.formatForDisplay(by, hasTime) + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + doneFlag() + " | " + getDescription() + " | "
+                + DateTimeUtil.formatForStorage(by, hasTime);
     }
 }

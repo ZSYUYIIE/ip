@@ -1,57 +1,53 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Storage {
-    private static final Path FILE_PATH = Paths.get(
-        System.getProperty("user.home"), "data", "duke.txt");
 
-    public void saveTasks(TasksList tasksList) {
+    private final File file;
+
+    public Storage(String path) {
+        this.file = new File(path);
+        ensureExists();
+    }
+
+    private void ensureExists() {
         try {
-            Files.createDirectories(FILE_PATH.getParent());
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH.toFile()));
-            try (writer) {
-                for (int i = 0; i < tasksList.getTaskCount(); i++) {
-                    Task task = tasksList.getTask(i);
-                    writer.write(task.toFileString());
-                    writer.newLine();
-                }
-            } catch (IOException e) {
-                System.out.println("An error occurred while saving tasks: " + e.getMessage());       
+            File parent = file.getParentFile();
+            if (parent != null) {
+                parent.mkdirs();
             }
+            file.createNewFile();
         } catch (IOException e) {
-            System.out.println("An error occurred while creating directories: " + e.getMessage());
+            throw new ZweeException("Failed to initialize storage.");
         }
     }
 
-    public TasksList loadTasks() {
-        TasksList tasksList = new TasksList();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH.toFile()))) {
+    public List<Task> load() {
+        List<Task> tasks = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                switch (parts[0].charAt(0)) {
-                    case 'T':
-                        tasksList.addTask(new Todo(parts[2]));  
-                        break;
-                    case 'D':
-                        tasksList.addTask(new Deadline(parts[2], parts[3]));
-                        break;
-                    case 'E':
-                        tasksList.addTask(new Event(parts[2], parts[3], parts[4]));
-                        break;
-                    default:
-                        break;
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    tasks.add(Parser.parseStoredTask(line));
                 }
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks: " + e.getMessage());
-        } 
-        return tasksList;
+            throw new ZweeException("Error loading tasks.");
+        }
+
+        return tasks;
+    }
+
+    public void save(TaskList taskList) {
+        try (FileWriter fw = new FileWriter(file)) {
+            for (Task task : taskList.getAll()) {
+                fw.write(task.toFileString());
+                fw.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new ZweeException("Error saving tasks.");
+        }
     }
 }

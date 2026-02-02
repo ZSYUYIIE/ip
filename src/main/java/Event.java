@@ -1,26 +1,30 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Event extends Task {
-    private String startDateString;
-    private String endDateString;
-    private LocalDate startDate;
-    private LocalDate endDate;
 
-    public Event(String description, String startDate, String endDate) {
+    private final LocalDateTime at;
+    private final boolean hasTime;
+
+    public Event(String description, LocalDateTime at, boolean hasTime) {
         super(description);
-        this.startDate = LocalDate.parse(startDate);
-        this.endDate = LocalDate.parse(endDate);
-        this.startDateString = this.startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        this.endDateString = this.endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        this.at = at;
+        this.hasTime = hasTime;
+    }
+
+    public static Event fromStorage(String description, String storedDateTime) {
+        LocalDateTime dateTime = DateTimeUtil.parseStorageDateTime(storedDateTime);
+        boolean hasTime = DateTimeUtil.parseStorageHasTime(storedDateTime);
+        return new Event(description, dateTime, hasTime);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDateString + " to: " + endDateString + ")";
+        return "[E]" + super.toString() + " (at: " + DateTimeUtil.formatForDisplay(at, hasTime) + ")";
     }
 
+    @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + startDate + " | " + endDate;
+        return "E | " + doneFlag() + " | " + getDescription() + " | "
+                + DateTimeUtil.formatForStorage(at, hasTime);
     }
 }

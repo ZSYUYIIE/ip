@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Ui {
 
     private static final String LINE = "________________________________________";
+
     private final Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
@@ -32,7 +33,6 @@ public class Ui {
             System.out.println("Your task list is empty.");
             return;
         }
-
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
@@ -44,7 +44,7 @@ public class Ui {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public void showTaskRemoved(Task task, int size) {
+    public void showTaskDeleted(Task task, int size) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + size + " tasks in the list.");

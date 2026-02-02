@@ -1,5 +1,6 @@
 public abstract class Task {
-    private String description;
+
+    private final String description;
     private boolean isDone;
 
     public Task(String description) {
@@ -8,20 +9,29 @@ public abstract class Task {
     }
 
     public void mark() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void unmark() {
-        this.isDone = false;
+        isDone = false;
     }
 
-
-    public String toFileString() {
-        return (isDone ? "1" : "0") + " | " + description; 
+    public String getDescription() {
+        return description;
     }
-    
+
+    protected String statusIcon() {
+        return isDone ? "[X]" : "[ ]";
+    }
+
+    protected String doneFlag() {
+        return isDone ? "1" : "0";
+    }
+
+    public abstract String toFileString();
+
     @Override
     public String toString() {
-        return (isDone ? "[X] " : "[ ] ") + description;
+        return statusIcon() + " " + description;
     }
 }
