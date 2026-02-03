@@ -1,9 +1,9 @@
 package zwee.command;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import task.Todo;
+import zwee.storage.Storage;
+import zwee.task.Task;
+import zwee.task.TaskList;
+import zwee.task.Todo;
 import zwee.ui.Ui;
 
 /**

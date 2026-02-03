@@ -1,4 +1,4 @@
-package task;
+package zwee.task;
 
 /**
  * Represents a task with a description and completion status.

@@ -1,4 +1,4 @@
-package task;
+package zwee.task;
 
 /**
  * Represents a todo task with a description and no dates.

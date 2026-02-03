@@ -1,10 +1,10 @@
 package zwee.command;
 import java.time.LocalDate;
 
-import storage.Storage;
-import task.Deadline;
-import task.Task;
-import task.TaskList;
+import zwee.storage.Storage;
+import zwee.task.Deadline;
+import zwee.task.Task;
+import zwee.task.TaskList;
 import zwee.ui.Ui;
 
 /**

@@ -1,9 +1,9 @@
 package zwee;
 
-import storage.Storage;
-import task.TaskList;
 import zwee.command.Command;
 import zwee.parser.Parser;
+import zwee.storage.Storage;
+import zwee.task.TaskList;
 import zwee.ui.Ui;
 
 public class Zwee {

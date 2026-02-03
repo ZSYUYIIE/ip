@@ -1,7 +1,7 @@
-package task;
+package zwee.task;
 import java.time.LocalDate;
 
-import util.DateTimeUtil;
+import zwee.util.DateTimeUtil;
 
 /**
  * Represents a deadline task with a due date.

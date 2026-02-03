@@ -1,4 +1,4 @@
-package storage;
+package zwee.storage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import task.Task;
-import task.TaskList;
+
 import zwee.ZweeException;
 import zwee.parser.Parser;
+import zwee.task.Task;
+import zwee.task.TaskList;
 
 public class Storage {
 

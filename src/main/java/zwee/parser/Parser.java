@@ -1,11 +1,6 @@
 package zwee.parser;
 import java.time.LocalDate;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
-import util.DateTimeUtil;
 import zwee.ZweeException;
 import zwee.command.AddDeadlineCommand;
 import zwee.command.AddEventCommand;
@@ -16,6 +11,11 @@ import zwee.command.ExitCommand;
 import zwee.command.ListCommand;
 import zwee.command.MarkCommand;
 import zwee.command.UnmarkCommand;
+import zwee.task.Deadline;
+import zwee.task.Event;
+import zwee.task.Task;
+import zwee.task.Todo;
+import zwee.util.DateTimeUtil;
 
 /**
  * Parses user commands and stored task lines.

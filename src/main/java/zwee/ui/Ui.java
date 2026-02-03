@@ -1,8 +1,8 @@
 package zwee.ui;
 import java.util.Scanner;
 
-import task.Task;
-import task.TaskList;
+import zwee.task.Task;
+import zwee.task.TaskList;
 
 public class Ui {
 
