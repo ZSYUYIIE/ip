@@ -49,4 +49,8 @@ public class Zwee {
     public static void main(String[] args) {
         new Zwee(DEFAULT_FILE_PATH).run();
     }
+
+    public String getResponse(String input) {
+            return "Zwee heard: " + input;
+    }
 }

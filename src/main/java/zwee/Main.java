@@ -20,8 +20,9 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
 
-    //private Image zweeImage = new Image(this.getClass().getResourceAsStream("/images/ZeZwee.png"));
+    private Image zweeImage = new Image(this.getClass().getResourceAsStream("/images/ZeZwee.png"));
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ZeUser.png"));
+    private Zwee zwee = new Zwee("data/zwee.txt");
 
     @Override
     public void start(Stage stage) {
@@ -78,7 +79,7 @@ public class Main extends Application {
         scene = new Scene(mainLayout);
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        
+
         stage.setScene(scene);
         stage.show();
 
@@ -89,7 +90,12 @@ public class Main extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String zweeText = zwee.getResponse(userText);
+        dialogContainer.getChildren().addAll(
+            new DialogBox(zweeText, zweeImage), 
+            new DialogBox(userText, userImage)
+        );
         userInput.clear();
     }
 }
