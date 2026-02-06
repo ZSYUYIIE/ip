@@ -33,7 +33,11 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Zwee instance */
     public void setZwee(Zwee z) {
-        zwee = z;
+        this.zwee = z;
+        String startupMessage = zwee.showStartup();
+        dialogContainer.getChildren().add(
+                DialogBox.getZweeDialog(startupMessage, zweeeImage)
+        );
     }
 
     /**

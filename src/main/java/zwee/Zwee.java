@@ -5,8 +5,6 @@ import zwee.parser.Parser;
 import zwee.storage.Storage;
 import zwee.task.TaskList;
 import zwee.ui.Ui;
-import zwee.ZweeException;
-import zwee.command.Command;;
 
 /**
  * The main class for the Zwee application.
@@ -25,6 +23,10 @@ public class Zwee {
         tasks = new TaskList(storage.load());
     }
 
+    public String showStartup() {
+        return ui.showWelcome() + "\n\n" + ui.showList(tasks);
+    }
+
     /**
      * Runs the main loop of the application.
      */
@@ -35,9 +37,11 @@ public class Zwee {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-
                 Command command = Parser.parse(fullCommand);
-                isExit = command.isExit();
+
+                String output = command.execute(tasks, ui, storage);
+
+            isExit = command.isExit();
             } catch (ZweeException e) {
                 ui.showError(e.getMessage());
             }

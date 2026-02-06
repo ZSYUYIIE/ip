@@ -14,9 +14,6 @@ public class Ui {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public String show(String message) {
-        return message;
-    }
     /**
      * Displays the initial greeting message to the user.
      * @return A String representing the welcome message.
