@@ -19,13 +19,13 @@ public class Storage {
 
     public Storage(String path) {
         this.file = new File(path);
-        ensureExists();
+        ensureParentDirectoryExists();
     }
 
     /**
      * Ensures that the storage file and its parent directories exist.
      */
-    private void ensureExists() {
+    private void ensureParentDirectoryExists() {
         try {
             File parent = file.getParentFile();
             if (parent != null) {
