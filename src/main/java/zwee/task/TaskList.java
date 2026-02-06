@@ -55,6 +55,15 @@ public class TaskList {
         return task;
     }
 
+    public TaskList find(String description) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(description)) {
+                foundTasks.add(task);
+            }
+        }
+        return new TaskList(foundTasks);
+    }
     /**
      * Unmarks a task as not done by its one-based index.
      *
