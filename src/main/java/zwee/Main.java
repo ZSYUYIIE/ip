@@ -93,8 +93,8 @@ public class Main extends Application {
         String userText = userInput.getText();
         String zweeText = zwee.getResponse(userText);
         dialogContainer.getChildren().addAll(
-            new DialogBox(zweeText, zweeImage), 
-            new DialogBox(userText, userImage)
+            DialogBox.getUserDialog(userText, userImage),
+            DialogBox.getDukeDialog(zweeText, zweeImage)
         );
         userInput.clear();
     }
