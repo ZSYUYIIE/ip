@@ -35,15 +35,11 @@ public class Zwee {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine();
 
                 Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (ZweeException e) {
                 ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
             }
         }
     }
@@ -53,12 +49,11 @@ public class Zwee {
     }
 
     public String getResponse(String input) {
-        /*try {
-        Command c = Parser.parse(input);
-            return c.execute(tasks, storage); // returns a String instead of printing
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage); // returns a String instead of printing
         } catch (ZweeException e) {
             return e.getMessage();
-        }*/
-        return "This is a placeholder response.";
+        }
     }
 }
