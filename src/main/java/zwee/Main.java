@@ -77,6 +77,8 @@ public class Main extends Application {
         });
         scene = new Scene(mainLayout);
 
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        
         stage.setScene(scene);
         stage.show();
 
