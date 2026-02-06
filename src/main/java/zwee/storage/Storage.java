@@ -22,6 +22,9 @@ public class Storage {
         ensureExists();
     }
 
+    /**
+     * Ensures that the storage file and its parent directories exist.
+     */
     private void ensureExists() {
         try {
             File parent = file.getParentFile();
@@ -34,6 +37,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
 
@@ -51,6 +59,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given task list to the storage file.
+     *
+     * @param taskList The task list to be saved.
+     */
     public void save(TaskList taskList) {
         try (FileWriter fw = new FileWriter(file)) {
             for (Task task : taskList.getAll()) {

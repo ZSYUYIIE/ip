@@ -6,6 +6,9 @@ import zwee.storage.Storage;
 import zwee.task.TaskList;
 import zwee.ui.Ui;
 
+/**
+ * The main class for the Zwee application.
+ */
 public class Zwee {
 
     private static final String DEFAULT_FILE_PATH = "data/zwee.txt";
@@ -20,6 +23,9 @@ public class Zwee {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Runs the main loop of the application.
+     */
     public void run() {
         ui.showWelcome();
         ui.showList(tasks);

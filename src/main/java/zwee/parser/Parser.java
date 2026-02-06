@@ -77,6 +77,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Splits the input into a command keyword and its arguments.
+     * @param trimmed
+     * @return
+     */
     private static String[] splitKeywordAndArgs(String trimmed) {
         String[] parts = trimmed.split(DELIMITER_SPACE, SPLIT_LIMIT_TWO);
         String keyword = parts[0];
@@ -84,6 +89,9 @@ public class Parser {
         return new String[] {keyword, args};
     }
 
+    /**
+     * Parses todo in the form: todo <description>
+     */
     private static Command parseTodo(String args) {
         if (args.isEmpty()) {
             throw new ZweeException("Please enter todo format: todo <description>");
@@ -91,6 +99,9 @@ public class Parser {
         return new AddTodoCommand(args);
     }
 
+    /**
+     * Parses deadline in the form: deadline <desc> /by <date>
+     */
     private static Command parseDeadline(String args) {
         String[] parts = splitOnTag(args, TAG_BY,
                 "Please enter deadline format: deadline <description> /by <date>");
@@ -124,6 +135,15 @@ public class Parser {
         return new AddEventCommand(description, start, end);
     }
 
+    /**
+     * Splits the args on a given tag and validates the result.
+     *
+     * @param args The arguments string to split.
+     * @param tag The tag to split on.
+     * @param errorMessage The error message to throw if split fails.
+     * @return An array with description and date part.
+     * @throws ZweeException If the split fails or parts are empty.
+     */
     private static String[] splitOnTag(String args, String tag, String errorMessage) {
         String[] parts = args.split(tag, SPLIT_LIMIT_TWO);
         if (parts.length < 2) {
@@ -139,6 +159,14 @@ public class Parser {
         return new String[]{description, datePart};
     }
 
+    /**
+     * Parses a one-based index from the args.
+     *
+     * @param args The arguments string containing the index.
+     * @param commandWord The command word for error messages.
+     * @return The parsed one-based index.
+     * @throws ZweeException If parsing fails.
+     */
     private static int parseIndex(String args, String commandWord) {
         if (args.isEmpty()) {
             throw new ZweeException("Please enter " + commandWord + " format: " + commandWord + " <task number>");
@@ -171,6 +199,13 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Creates a Task from its stored parts.
+     * @param type
+     * @param description
+     * @param parts
+     * @return
+     */
     private static Task createTaskFromStoredParts(String type, String description, String[] parts) {
         switch (type) {
         case "T":
@@ -190,6 +225,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Applies the done flag to the task.
+     * @param task
+     * @param doneFlag
+     */
     private static void applyDoneFlag(Task task, String doneFlag) {
         if ("1".equals(doneFlag)) {
             task.mark();
