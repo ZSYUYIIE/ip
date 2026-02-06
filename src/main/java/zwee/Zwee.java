@@ -5,6 +5,8 @@ import zwee.parser.Parser;
 import zwee.storage.Storage;
 import zwee.task.TaskList;
 import zwee.ui.Ui;
+import zwee.ZweeException;
+import zwee.command.Command;;
 
 /**
  * The main class for the Zwee application.
@@ -51,6 +53,12 @@ public class Zwee {
     }
 
     public String getResponse(String input) {
-            return "Zwee heard: " + input;
+        /*try {
+        Command c = Parser.parse(input);
+            return c.execute(tasks, storage); // returns a String instead of printing
+        } catch (ZweeException e) {
+            return e.getMessage();
+        }*/
+        return "This is a placeholder response.";
     }
 }
