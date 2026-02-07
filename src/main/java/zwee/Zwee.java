@@ -23,6 +23,10 @@ public class Zwee {
         tasks = new TaskList(storage.load());
     }
 
+    public String showStartup() {
+        return ui.showWelcome() + "\n\n" + ui.showList(tasks);
+    }
+
     /**
      * Runs the main loop of the application.
      */
@@ -33,20 +37,27 @@ public class Zwee {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine();
-
                 Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
+
+                String output = command.execute(tasks, ui, storage);
+
+            isExit = command.isExit();
             } catch (ZweeException e) {
                 ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
             }
         }
     }
 
     public static void main(String[] args) {
         new Zwee(DEFAULT_FILE_PATH).run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage); // returns a String instead of printing
+        } catch (ZweeException e) {
+            return e.getMessage();
+        }
     }
 }

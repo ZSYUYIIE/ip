@@ -16,18 +16,18 @@ public class Ui {
 
     /**
      * Displays the initial greeting message to the user.
+     * @return A String representing the welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm Zwee");
-        System.out.println("What can I do for you?");
-        showLine();
+    public String showWelcome() {
+        return "Hello! I'm Zwee\nWhat can I do for you?\n" + showLine();
     }
     
     /**
      * Displays the goodbye message to the user.
+     * @return A String representing the goodbye message.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -41,9 +41,10 @@ public class Ui {
 
     /**
      * Displays a horizontal line for better readability.
+     * @return A String representing the horizontal line.
      */
-    public void showLine() {
-        System.out.println(LINE);
+    public String showLine() {
+        return LINE;
     }
 
     /**
@@ -51,23 +52,25 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
      * Displays the list of tasks to the user.
      *
      * @param tasks The TaskList containing the tasks to be displayed.
+     * @return A String representation of the task list.
      */
-    public void showList(TaskList tasks) {
+    public String showList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("Your task list is empty.");
-            return;
+            return "Your task list is empty.";
         }
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            sb.append((i + 1) + "." + tasks.get(i) + "\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -76,10 +79,9 @@ public class Ui {
      * @param task The task that was added.
      * @param size The new size of the task list.
      */
-    public void showTaskAdded(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String showTaskAdded(Task task, int size) {
+        return "Got it. I've added this task:\n  " + 
+        task + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -87,30 +89,30 @@ public class Ui {
      *
      * @param task The task that was deleted.
      * @param size The new size of the task list.
+     * @return A String representation of the deletion message.
      */
-    public void showTaskDeleted(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public String showTaskDeleted(Task task, int size) {
+        return "Noted. I've removed this task: " + 
+        task + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
      * Displays a message indicating that a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return A String representation of the marked task message.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+    public String showTaskMarked(Task task) {
+        return "Nice! I've marked this task as done:\n  " + task;
     }
 
     /**
      * Displays a message indicating that a task has been unmarked as not done.
      *
      * @param task The task that was unmarked.
+     * @return A String representation of the unmarked task message.
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+    public String showTaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:\n  " + task;
     }
 }
