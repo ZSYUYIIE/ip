@@ -17,9 +17,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.mark(oneBasedIndex);
         storage.save(tasks);
-        ui.showTaskMarked(task);
+        return ui.showTaskMarked(task);
     }
 }
