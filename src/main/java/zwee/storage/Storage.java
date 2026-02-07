@@ -55,7 +55,6 @@ public class Storage {
         } catch (IOException e) {
             throw new ZweeException("Error loading tasks.");
         }
-
         return tasks;
     }
 
