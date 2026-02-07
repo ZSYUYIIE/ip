@@ -1,4 +1,5 @@
 package zwee.storage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,6 @@ public class Storage {
         } catch (IOException e) {
             throw new ZweeException("Error loading tasks.");
         }
-
         return tasks;
     }
 
