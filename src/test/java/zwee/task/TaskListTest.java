@@ -43,4 +43,29 @@ public class TaskListTest {
 
         assertThrows(RuntimeException.class, () -> tasks.mark(0));
     }
+
+    @Test
+    public void find_existingDescription_returnsTaskList() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("read book"));
+        tasks.add(new Todo("write code"));
+        tasks.add(new Todo("read article"));
+
+        TaskList foundTasks = tasks.find("read");
+
+        assertEquals(2, foundTasks.size());
+        assertEquals("read book", foundTasks.get(0).getDescription());
+        assertEquals("read article", foundTasks.get(1).getDescription());
+    }
+
+    @Test
+    public void find_nonExistingDescription_returnsEmptyTaskList() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("read book"));
+        tasks.add(new Todo("write code"));
+
+        TaskList foundTasks = tasks.find("exercise");
+
+        assertEquals(0, foundTasks.size());
+    }
 }
