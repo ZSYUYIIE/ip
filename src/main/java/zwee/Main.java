@@ -9,11 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Zwee using FXML.
  */
 public class Main extends Application {
 
-    private Zwee duke = new Zwee("data/zwee.txt");
+    private Zwee zwee = new Zwee("data/zwee.txt");
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setZwee(duke);  // inject the Zwee instance
+            fxmlLoader.<MainWindow>getController().setZwee(zwee);  // inject the Zwee instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
