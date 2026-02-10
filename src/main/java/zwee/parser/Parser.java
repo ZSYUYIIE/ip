@@ -60,6 +60,12 @@ public class Parser {
         String keyword = parts[0];
         String args = parts[1];
 
+        assert !keyword.isEmpty() : "Keyword should not be empty";
+        assert args != null : "Args should not be null";
+        assert !args.isEmpty() || keyword.equals(CMD_MARK)
+            || keyword.equals(CMD_UNMARK) || keyword.equals(CMD_DELETE)
+            || keyword.equals(CMD_FIND) : "Args should not be empty for this command";
+        
         switch (keyword) {
         case CMD_TODO:
             return parseTodo(args);

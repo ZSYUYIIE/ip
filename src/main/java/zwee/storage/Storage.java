@@ -45,7 +45,7 @@ public class Storage {
      */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
-
+        assert tasks != null : "Tasks should not be null";
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -65,6 +65,7 @@ public class Storage {
      * @param taskList The task list to be saved.
      */
     public void save(TaskList taskList) {
+        assert taskList != null : "TaskList should not be null";
         try (FileWriter fw = new FileWriter(file)) {
             for (Task task : taskList.getAll()) {
                 fw.write(task.toFileString());
