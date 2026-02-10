@@ -38,6 +38,7 @@ public class TaskList {
      */
     public Task delete(int oneBasedIndex) {
         int index = toZeroBasedIndex(oneBasedIndex);
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.remove(index);
     }
 
@@ -50,6 +51,7 @@ public class TaskList {
      */
     public Task mark(int oneBasedIndex) {
         int index = toZeroBasedIndex(oneBasedIndex);
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         Task task = tasks.get(index);
         task.mark();
         return task;
@@ -73,6 +75,7 @@ public class TaskList {
      */
     public Task unmark(int oneBasedIndex) {
         int index = toZeroBasedIndex(oneBasedIndex);
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         Task task = tasks.get(index);
         task.unmark();
         return task;
