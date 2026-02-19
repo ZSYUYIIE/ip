@@ -115,4 +115,43 @@ public class Ui {
     public String showTaskUnmarked(Task task) {
         return "OK, I've marked this task as not done yet:\n  " + task;
     }
+
+    /**
+     * Displays the list of archived tasks to the user.
+     *
+     * @param archivedTasks The TaskList containing the archived tasks to be displayed.
+     * @return A String representation of the archived task list.
+     */
+    public String showArchivedTasks(TaskList archivedTasks) {
+        if (archivedTasks.isEmpty()) {
+            return "Your archive is empty.";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the archived tasks:\n");
+        for (int i = 0; i < archivedTasks.size(); i++) {
+            sb.append((i + 1) + "." + archivedTasks.get(i) + "\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Displays a message indicating that the archive process was successful.
+     *
+     * @param count The number of tasks that were archived.
+     * @param path The file path where the tasks were archived.
+     * @return A String representation of the archive success message.
+     */    
+    public String getArchiveSuccessMessage(int count, String path) {
+        return "Success! " + count + " tasks moved to " + path + 
+        "\nYou now have a clean slate.";
+    }
+    
+    /**
+     * Displays a message indicating that the task list is already empty when attempting to archive.
+     *
+     * @return A String representation of the empty archive message.
+     */
+    public String showEmptyArchiveMessage() {
+        return "The task list is already empty. Nothing to archive.";
+    }
 }

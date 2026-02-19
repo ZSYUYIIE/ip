@@ -27,6 +27,25 @@ public class Storage {
     }
 
     /**
+     * Appends a list of tasks to the specified archive file.
+     *
+     * @param tasks The list of tasks to be archived.
+     * @param archivePath The file path where tasks will be stored.
+     * @throws ZweeException If an error occurs during the archiving process.
+     */
+    public void archiveTasks(TaskList tasks, String archivePath) {
+        File archiveFile = new File(archivePath);
+        try (FileWriter fw = new FileWriter(archiveFile, true)) { 
+            for (Task task : tasks.getAll()) {
+                fw.write(task.toFileString());
+                fw.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new ZweeException("Failed to write to archive file.");
+        }
+    }
+
+    /**
      * Ensures that the storage file and its parent directories exist.
      */
     private void ensureParentDirectoryExists() {

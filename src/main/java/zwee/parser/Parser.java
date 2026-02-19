@@ -5,6 +5,7 @@ import zwee.ZweeException;
 import zwee.command.AddDeadlineCommand;
 import zwee.command.AddEventCommand;
 import zwee.command.AddTodoCommand;
+import zwee.command.ArchiveCommand;
 import zwee.command.Command;
 import zwee.command.DeleteCommand;
 import zwee.command.ExitCommand;
@@ -26,6 +27,7 @@ public class Parser {
     private static final String SECTION_SEPARATOR = " \\| ";
     private static final int SPLIT_LIMIT_TWO = 2;
 
+    private static final String CMD_ARCHIVE = "archive";
     private static final String CMD_BYE = "bye";
     private static final String CMD_LIST = "list";
     private static final String CMD_TODO = "todo";
@@ -81,6 +83,8 @@ public class Parser {
             return new DeleteCommand(parseIndex(args, CMD_DELETE));
         case CMD_FIND:
             return new FindCommand(args);
+        case CMD_ARCHIVE:
+            return new ArchiveCommand();
         default:
             throw new ZweeException("OOPS, please type a valid command: " + keyword);
         }
