@@ -1,2 +1,1 @@
-T | 0 | read book
 D | 0 | submit report | 2024-12-01

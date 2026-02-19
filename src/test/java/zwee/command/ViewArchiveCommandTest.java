@@ -43,12 +43,10 @@ public class ViewArchiveCommandTest {
         String result = viewArchiveCommand.execute(tasks, ui, storage).trim();
 
         // Verify
-        // Note: Formatting must match your ViewArchiveCommand output exactly
-        String expectedOutput = "Archived Tasks:\n" +
-                "1. [T][ ] read book\n" +
-                "2. [D][ ] submit report (by: Dec 01 2024)"; 
-                // Careful: DateTimeFormatter might output 'Dec 1' or 'Dec 01' depending on your pattern
-
+        // Note: Formatting must match your showArchivedTasks output exactly
+        String expectedOutput = "Here are your archived tasks:\n" +
+                "1.[T][ ] read book\n" +
+                "2.[D][ ] submit report (by: Dec 01 2024)";
         assertEquals(expectedOutput, result);
         
         // Cleanup dummy file
@@ -71,7 +69,7 @@ public class ViewArchiveCommandTest {
         String result = viewArchiveCommand.execute(tasks, ui, storage).trim();
 
         // Verify
-        String expectedOutput = "Archive is empty.";
+        String expectedOutput = "Your archive is empty.";
         assertEquals(expectedOutput, result);
         
         // Cleanup
