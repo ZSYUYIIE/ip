@@ -93,6 +93,35 @@ public class TaskList {
     }
 
     /**
+     * Unarchives a task by its one-based index.
+     *
+     * @param oneBasedIndex The one-based index of the task to be unarchived.
+     * @return The unarchived task.
+     * @throws ZweeException If the index is out of bounds.
+     */
+    public Task archive(int oneBasedIndex) {
+        int index = toZeroBasedIndex(oneBasedIndex);
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
+        Task task = tasks.get(index);
+        task.archive();
+        return task;
+    }
+
+    /**
+     * Unarchives a task by its one-based index.
+     *
+     * @param oneBasedIndex The one-based index of the task to be unarchived.
+     * @return The unarchived task.
+     * @throws ZweeException If the index is out of bounds.
+     */
+    public Task unarchive(int oneBasedIndex) {
+        int index = toZeroBasedIndex(oneBasedIndex);
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
+        Task task = tasks.get(index);
+        task.unarchive();
+        return task;
+    }
+    /**
      * Returns the number of tasks in the task list.
      *
      * @return The size of the task list.

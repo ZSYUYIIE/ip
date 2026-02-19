@@ -122,7 +122,7 @@ public class Ui {
      * @param archivedTasks The TaskList containing the archived tasks to be displayed.
      * @return A String representation of the archived task list.
      */
-    public String showArchivedTasks(TaskList archivedTasks) {
+    public String showTasksArchived(TaskList archivedTasks) {
         if (archivedTasks.isEmpty()) {
             return "Your archive is empty.";
         }
@@ -134,6 +134,42 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Displays a message indicating that a task has been archived.
+     *
+     * @param task The task that was archived.
+     * @return A String representation of the archived task message.
+     */
+    public String showTaskArchived(Task task) {
+        return "OK, I've archived this task:\n  " + task;
+    }
+
+    /**
+     * Displays a message indicating that a task has been unarchived.
+     *
+     * @param task The task that was unarchived.
+     * @return A String representation of the unarchived task message.
+     */
+    public String showTaskUnarchived(Task task) {
+        return "OK, I've unarchived this task:\n  " + task;
+    }
+    /**
+     * Displays the list of unarchived tasks to the user.
+     *
+     * @param unarchivedTasks The TaskList containing the unarchived tasks to be displayed.
+     * @return A String representation of the unarchived task list.
+     */
+    public String showTasksUnarchived(TaskList unarchivedTasks) {
+        if (unarchivedTasks.isEmpty()) {
+            return "No tasks were unarchived.";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the unarchived tasks:\n");
+        for (int i = 0; i < unarchivedTasks.size(); i++) {
+            sb.append((i + 1) + "." + unarchivedTasks.get(i) + "\n");
+        }
+        return sb.toString();
+    }
     /**
      * Displays a message indicating that the archive process was successful.
      *

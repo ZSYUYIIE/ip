@@ -82,6 +82,63 @@ public class Storage {
     }
 
     /**
+     * Appends a single task to the archive file.
+     * Note: Uses String path to ensure we don't accidentally write to the main storage.
+     */
+    public void saveToArchive(Task task, String archivePath) {
+        File archiveFile = new File(archivePath);
+        // Ensure archive file exists
+        if (archiveFile.getParentFile() != null) {
+            archiveFile.getParentFile().mkdirs();
+        }
+        try {
+            archiveFile.createNewFile();
+            try (FileWriter fw = new FileWriter(archiveFile, true)) { // true = append
+                fw.write(task.toFileString());
+                fw.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new ZweeException("Error saving to archive.");
+        }
+    }
+
+    /**
+     * Overwrites the archive file with a new list (used when an item is removed/unarchived).
+     */
+    public void overwriteArchive(List<Task> tasks, String archivePath) {
+        File archiveFile = new File(archivePath);
+        try (FileWriter fw = new FileWriter(archiveFile)) { // No 'true' = overwrite
+            for (Task task : tasks) {
+                fw.write(task.toFileString());
+                fw.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new ZweeException("Error updating archive file.");
+        }
+    }
+
+    /**
+     * Loads tasks from the archive file.
+     */
+    public List<Task> loadArchive(String archivePath) {
+        List<Task> tasks = new ArrayList<>();
+        File archiveFile = new File(archivePath);
+        if (!archiveFile.exists()) {
+            return tasks;
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(archiveFile))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    tasks.add(Parser.parseStoredTask(line));
+                }
+            }
+        } catch (IOException e) {
+            throw new ZweeException("Error loading archived tasks.");
+        }
+        return tasks;
+    }
+    /**
      * Saves the given task list to the storage file.
      *
      * @param taskList The task list to be saved.
@@ -95,6 +152,22 @@ public class Storage {
             }
         } catch (IOException e) {
             throw new ZweeException("Error saving tasks.");
+        }
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    /**
+     * Clears all tasks from the archive file.
+     */
+    public void clearArchive() {
+        File archiveFile = new File("./data/archive.txt");
+        try (FileWriter fw = new FileWriter(archiveFile)) {
+            fw.write("");
+        } catch (IOException e) {
+            throw new ZweeException("Error clearing archive.");
         }
     }
 }

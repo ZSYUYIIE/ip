@@ -1,4 +1,2 @@
-T | 1 | read book
-D | 0 | return book | 2021-01-05
-E | 0 | project meeting | 2021-01-02 | 2022-02-01
-T | 0 | join sports club
+T | 0 | read book
+D | 0 | submit report | 2024-12-01

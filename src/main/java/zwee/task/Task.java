@@ -7,10 +7,34 @@ public abstract class Task {
 
     private final String description;
     private boolean isDone;
+    private boolean isArchived;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.isArchived = false;
+    }
+
+    /**
+     * Marks the task as archived.
+     */
+    public void archive() {
+        isArchived = true;
+    }
+
+    /**
+     * Returns the archived status of the task.
+    * @return true if the task is archived, false otherwise.
+    */
+    public boolean isArchived() {
+        return isArchived;
+    }
+    
+    /**
+     * Unarchives the task.
+     */
+    public void unarchive() {
+        isArchived = false;
     }
 
     /**

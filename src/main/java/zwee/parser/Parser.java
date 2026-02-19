@@ -13,6 +13,9 @@ import zwee.command.ListCommand;
 import zwee.command.MarkCommand;
 import zwee.command.UnmarkCommand;
 import zwee.command.FindCommand;
+import zwee.command.UnarchiveCommand;
+import zwee.command.ViewArchiveCommand;
+import zwee.command.ClearArchive;
 import zwee.task.Deadline;
 import zwee.task.Event;
 import zwee.task.Task;
@@ -37,6 +40,9 @@ public class Parser {
     private static final String CMD_UNMARK = "unmark";
     private static final String CMD_DELETE = "delete";
     private static final String CMD_FIND = "find";
+    private static final String CMD_VIEW_ARCHIVE = "viewarchive";
+    private static final String CMD_CLEAR_ARCHIVE = "cleararchive";
+    private static final String CMD_UNARCHIVE = "unarchive";
 
     private static final String TAG_BY = "/by";
     private static final String TAG_FROM = "/from";
@@ -84,7 +90,13 @@ public class Parser {
         case CMD_FIND:
             return new FindCommand(args);
         case CMD_ARCHIVE:
-            return new ArchiveCommand();
+            return new ArchiveCommand(parseIndex(args, CMD_ARCHIVE));
+        case CMD_VIEW_ARCHIVE:
+            return new ViewArchiveCommand();
+        case CMD_UNARCHIVE:
+            return new UnarchiveCommand(parseIndex(args, CMD_UNARCHIVE));
+        case CMD_CLEAR_ARCHIVE:
+            return new ClearArchive();
         default:
             throw new ZweeException("OOPS, please type a valid command: " + keyword);
         }
