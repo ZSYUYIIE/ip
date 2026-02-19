@@ -65,7 +65,7 @@ public class Ui {
      */
     public String showList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            return "Your task list is empty.";
+            return "OOPS, Your task list is empty.";
         }
         return IntStream.range(0, tasks.size())
                 .mapToObj(i -> (i + 1) + "." + tasks.get(i))
