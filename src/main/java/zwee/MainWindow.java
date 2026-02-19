@@ -35,6 +35,8 @@ public class MainWindow extends AnchorPane {
         dialogContainer.heightProperty().addListener((observable) -> 
             scrollPane.setVvalue(1.0)
         );
+        // Handle Enter key to submit
+        userInput.setOnAction(e -> handleUserInput());
         // Focus on input field for better UX
         userInput.requestFocus();
     }
@@ -48,28 +50,57 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one for user input and one for bot response.
-     * Handles command execution and error styling.
+     * Handles command execution and comprehensive error styling and validation.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input.isEmpty()) {
+        
+        // Validate input
+        String validationError = validateInput(input);
+        if (validationError != null) {
+            addErrorDialog(validationError);
+            userInput.clear();
+            userInput.requestFocus();
             return;
         }
         
-        addUserDialog(input);
+        String trimmedInput = input.trim();
+        addUserDialog(trimmedInput);
         
         try {
-            String response = zwee.getResponse(input);
+            String response = zwee.getResponse(trimmedInput);
             addBotDialog(response);
         } catch (ZweeException e) {
             addErrorDialog(e.getMessage());
         } catch (Exception e) {
-            addErrorDialog("An unexpected error occurred: " + e.getMessage());
+            addErrorDialog("An unexpected error occurred. Please check your input and try again.");
         }
         
         userInput.clear();
         userInput.requestFocus();
+    }
+    
+    /**
+     * Validates user input before processing.
+     * @return Error message if validation fails, null if valid.
+     */
+    private String validateInput(String input) {
+        if (input == null || input.isEmpty()) {
+            return null; // Empty input is silently ignored
+        }
+        
+        // Check for excessive spaces
+        if (input.contains("  ")) {
+            return "Warning: Multiple consecutive spaces detected. Commands should use single spaces.";
+        }
+        
+        // Check total length
+        if (input.length() > 500) {
+            return "Error: Command is too long (max 500 characters).";
+        }
+        
+        return null; // Input is valid
     }
 
     /**

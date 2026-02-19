@@ -20,7 +20,7 @@ public class Ui {
      * @return A String representing the welcome message.
      */
     public String showWelcome() {
-        return "Hello! I'm Zwee\nWhat can I do for you?\n" + showLine();
+        return "Hey babe! I'm Zwee \nLet me help you stay on top of your tasks...\n" + showLine();
     }
     
     /**
@@ -28,7 +28,7 @@ public class Ui {
      * @return A String representing the goodbye message.
      */
     public String showGoodbye() {
-        return "Bye. Hope to see you again soon!";
+        return "Catch you later, love! Don't work too hard!";
     }
 
     /**
@@ -80,8 +80,8 @@ public class Ui {
      * @param size The new size of the task list.
      */
     public String showTaskAdded(Task task, int size) {
-        return "Got it. I've added this task:\n  " + 
-        task + "\nNow you have " + size + " task(s) in your list.";
+        return "Done! I've added this to your list:\n  " + 
+        task + "\nYou now have " + size + " task(s). You've got this!";
     }
 
     /**
@@ -92,8 +92,8 @@ public class Ui {
      * @return A String representation of the deletion message.
      */
     public String showTaskDeleted(Task task, int size) {
-        return "Got it. I've removed this task:\n  " + 
-        task + "\nNow you have " + size + " task(s) in your list.";
+        return "Gotcha! I've deleted that for you:\n  " + 
+        task + "\nYou're down to " + size + " task(s) now. Keep crushing it!";
     }
 
     /**
@@ -103,7 +103,7 @@ public class Ui {
      * @return A String representation of the marked task message.
      */
     public String showTaskMarked(Task task) {
-        return "Got it. I've marked this task as done:\n  " + task;
+        return "Yay! I've marked this done: " + task + " - so proud of you\n";
     }
 
     /**
@@ -113,7 +113,7 @@ public class Ui {
      * @return A String representation of the unmarked task message.
      */
     public String showTaskUnmarked(Task task) {
-        return "Got it. I've marked this task as not done:\n  " + task;
+        return "No problem! I'll mark it as not done:\n  " + task;
     }
 
     /**
@@ -141,7 +141,7 @@ public class Ui {
      * @return A String representation of the archived task message.
      */
     public String showTaskArchived(Task task) {
-        return "Got it. I've archived this task:\n  " + task;
+        return "Perfect! I've stashed this away for you:\n  " + task;
     }
 
     /**
@@ -151,7 +151,7 @@ public class Ui {
      * @return A String representation of the unarchived task message.
      */
     public String showTaskUnarchived(Task task) {
-        return "Got it. I've restored this task:\n  " + task;
+        return "Brought it back for you, babe:\n  " + task;
     }
     /**
      * Displays the list of unarchived tasks to the user.
@@ -177,7 +177,7 @@ public class Ui {
      * @return A String representation of the archive success message.
      */    
     public String showArchiveSuccess(int count) {
-        return "Done! I've archived " + count + " task(s). You now have a fresh start!";
+        return "All done! I've archived " + count + " task(s). Time for a fresh start!";
     }
     
     /**
@@ -186,6 +186,6 @@ public class Ui {
      * @return A String representation of the archive cleared message.
      */
     public String showArchiveCleared() {
-        return "Done! I've cleared your archive.";
+        return "Archive cleared! Wiped the slate clean for you. \nLet's keep moving forward!";
     }
 }

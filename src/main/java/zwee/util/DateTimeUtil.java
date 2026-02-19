@@ -64,12 +64,16 @@ public class DateTimeUtil {
     }
 
     /**
-     * Parses user-provided date input (no time).
+     * Parses user-provided date input (no time) with comprehensive error checking.
      * Supported:
      * - yyyy-MM-dd
      * - d/M/yyyy
      */
     public static LocalDate parseUserDate(String raw) {
+        if (raw == null || raw.trim().isEmpty()) {
+            throw new ZweeException("Error: Date is empty. Please provide a date.\nFormats: yyyy-MM-dd or d/M/yyyy");
+        }
+        
         String trimmed = raw.trim();
 
         Optional<LocalDate> result = Arrays.stream(new DateTimeFormatter[]{USER_ISO_DATE, USER_DMY})
@@ -78,8 +82,20 @@ public class DateTimeUtil {
                 .map(Optional::get)
                 .findFirst();
 
-        return result.orElseThrow(() -> 
-            new ZweeException("Invalid date. Use yyyy-mm-dd (e.g., 2021-01-05) or d/M/yyyy."));
+        if (result.isPresent()) {
+            LocalDate date = result.get();
+            // Validate date is not in too distant past or future
+            LocalDate now = LocalDate.now();
+            if (date.isBefore(now.minusYears(10))) {
+                throw new ZweeException("Warning: Date is more than 10 years in the past: " + date);
+            }
+            if (date.isAfter(now.plusYears(10))) {
+                throw new ZweeException("Warning: Date is more than 10 years in the future: " + date);
+            }
+            return date;
+        }
+        
+        throw new ZweeException("Error: Invalid date format: '" + trimmed + "'.\nSupported formats:\n  - yyyy-MM-dd (e.g., 2026-03-01)\n  - d/M/yyyy (e.g., 1/3/2026)");
     }
 
     /**

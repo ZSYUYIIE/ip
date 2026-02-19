@@ -12,8 +12,8 @@
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fx:id="displayPicture"
-                   fitHeight="32.0"
-                   fitWidth="32.0"
+                   fitHeight="56.0"
+                   fitWidth="56.0"
                    pickOnBounds="true"
                    preserveRatio="true" />
         <VBox spacing="4" HBox.hgrow="ALWAYS">
