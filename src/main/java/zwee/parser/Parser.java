@@ -207,7 +207,7 @@ public class Parser {
      * @param type
      * @param description
      * @param parts
-     * @return
+     * @return Task
      */
     private static Task createTaskFromStoredParts(String type, String description, String[] parts) {
         switch (type) {

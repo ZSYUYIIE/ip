@@ -54,6 +54,11 @@ public abstract class Task {
         return isDone ? "1" : "0";
     }
 
+    /**
+     * Converts the task to a string format suitable for file storage.
+     *
+     * @return The string representation of the task for storage.
+     */
     public abstract String toFileString();
 
     @Override

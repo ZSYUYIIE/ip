@@ -14,6 +14,9 @@ import zwee.parser.Parser;
 import zwee.task.Task;
 import zwee.task.TaskList;
 
+/**
+ * Handles loading and saving of tasks to a file.
+ */
 public class Storage {
 
     private final File file;

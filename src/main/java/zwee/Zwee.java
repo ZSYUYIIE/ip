@@ -52,6 +52,12 @@ public class Zwee {
         new Zwee(DEFAULT_FILE_PATH).run();
     }
 
+    /**
+     * Gets the response for a given user input command.
+     *
+     * @param input The user input command.
+     * @return The response to be shown to the user.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);

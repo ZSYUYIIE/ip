@@ -4,6 +4,9 @@ import zwee.storage.Storage;
 import zwee.task.TaskList;
 import zwee.ui.Ui;
 
+/**
+ * Finds tasks in the task list that match a given description.
+ */
 public class FindCommand extends Command {
     private final String description;
 

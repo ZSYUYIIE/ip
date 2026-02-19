@@ -55,6 +55,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+    * Finds tasks that contain the given description.
+    *
+    * @param description The description to search for.
+    * @return A new TaskList containing the found tasks.
+    */
     public TaskList find(String description) {
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -64,6 +70,7 @@ public class TaskList {
         }
         return new TaskList(foundTasks);
     }
+    
     /**
      * Unmarks a task as not done by its one-based index.
      *
