@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Zwee using FXML.
+ * A GUI for Zwee using FXML with responsive design.
  */
 public class Main extends Application {
 
@@ -22,10 +22,19 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setZwee(zwee);  // inject the Zwee instance
+            
+            // Configure stage for resizable window
+            stage.setTitle("Zwee - Task Manager");
+            stage.setMinWidth(400.0);
+            stage.setMinHeight(500.0);
+            stage.setWidth(500.0);
+            stage.setHeight(600.0);
+            
+            fxmlLoader.<MainWindow>getController().setZwee(zwee);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+

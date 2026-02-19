@@ -13,10 +13,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
- * Represents a dialog box consisting of an ImageView to represent the speaker's face
- * and a label containing text from the speaker.
+ * Represents a dialog box with text and avatar for asymmetric conversation display.
+ * Supports different styling for user messages, bot messages, and error messages.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -38,28 +39,60 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Applies user message styling: right-aligned with blue background.
      */
-    private void flip() {
+    private void styleAsUser() {
+        setAlignment(Pos.TOP_RIGHT);
+        this.getStyleClass().add("dialog-user");
+        dialog.getStyleClass().add("dialog-text");
+        // Move image to the right by reversing children order
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
     }
 
     /**
-     * Creates a user dialog box.
+     * Applies bot message styling: left-aligned with light gray background.
+     */
+    private void styleAsBot() {
+        setAlignment(Pos.TOP_LEFT);
+        this.getStyleClass().add("dialog-bot");
+        dialog.getStyleClass().add("dialog-text");
+    }
+
+    /**
+     * Applies error message styling: left-aligned with red/pink background.
+     */
+    private void styleAsError() {
+        setAlignment(Pos.TOP_LEFT);
+        this.getStyleClass().add("dialog-error");
+        dialog.getStyleClass().add("dialog-text");
+    }
+
+    /**
+     * Creates a user dialog box (blue, right-aligned).
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.styleAsUser();
+        return db;
     }
 
     /**
-     * Creates a Zwee dialog box.
+     * Creates a bot dialog box (gray, left-aligned).
      */
     public static DialogBox getZweeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        db.styleAsBot();
+        return db;
+    }
+
+    /**
+     * Creates an error dialog box (red/pink, left-aligned).
+     */
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.styleAsError();
         return db;
     }
 }

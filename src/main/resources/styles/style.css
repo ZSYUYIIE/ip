@@ -1,0 +1,165 @@
+/* Main Window Styling */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #2c3e50;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Dialog Container */
+.dialog-container {
+    -fx-padding: 12 8 12 8;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Input Area */
+.input-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0;
+}
+
+/* Text Input Field */
+.text-input, .text-input:focused {
+    -fx-font-size: 11pt;
+    -fx-padding: 8 12 8 12;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-text-fill: #2c3e50;
+    -fx-prompt-text-fill: #999999;
+}
+
+.text-input:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+}
+
+/* Send Button */
+.button {
+    -fx-font-size: 11pt;
+    -fx-padding: 8 16 8 16;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-background-color: #3498db;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:pressed {
+    -fx-background-color: #21618c;
+}
+
+/* Dialog Text */
+.dialog-text {
+    -fx-font-size: 11pt;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #2c3e50;
+    -fx-wrap-text: true;
+    -fx-line-spacing: 1.2;
+}
+
+/* User Message Box */
+.dialog-user {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+}
+
+.dialog-user .dialog-text {
+    -fx-text-fill: #ffffff;
+    -fx-padding: 0;
+}
+
+/* Bot Message Box */
+.dialog-bot {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+}
+
+.dialog-bot .dialog-text {
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0;
+}
+
+/* Error Message */
+.dialog-error {
+    -fx-background-color: #ffe6e6;
+    -fx-text-fill: #c0392b;
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12 10 12;
+}
+
+.dialog-error .dialog-text {
+    -fx-text-fill: #c0392b;
+    -fx-padding: 0;
+    -fx-font-weight: bold;
+}
+
+/* Success Message */
+.dialog-success {
+    -fx-background-color: #d4edda;
+    -fx-text-fill: #155724;
+    -fx-border-color: #c3e6cb;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12 10 12;
+}
+
+.dialog-success .dialog-text {
+    -fx-text-fill: #155724;
+    -fx-padding: 0;
+}
+
+/* Scroll Pane */
+.scroll-pane {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 0;
+}
+
+.scroll-pane:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Scroll Bar */
+.scroll-bar {
+    -fx-font-size: 10pt;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #bdc3c7;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #95a5a6;
+}
+
+/* Image View for Profile Pictures */
+.image-view {
+    -fx-opacity: 0.8;
+}
