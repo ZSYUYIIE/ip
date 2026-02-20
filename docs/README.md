@@ -12,8 +12,6 @@ Zwee is a **desktop app for managing tasks**, optimized for use via a Command Li
 4. **Open a command terminal**, `cd` into the folder you put the jar file in, and use the `java -jar zwee.jar` command to run the application.
 
    * A GUI should appear in a few seconds.
-
-   *(Add your UI screenshot here: `![Zwee UI](images/Ui.png)`)*
 5. **Type the command in the command box and press Enter** to execute it. e.g. typing `list` and pressing Enter will display your current tasks.
 
 **Some example commands you can try:**
