@@ -4,15 +4,14 @@ Zwee is a **desktop app for managing tasks**, optimized for use via a Command Li
 
 ## Quick start
 
-1. **Ensure you have Java 17 installed** on your Computer.
-
-   * **Mac users:** Ensure you have the precise JDK version prescribed.
-2. **Download the latest `.jar` file** from the releases page.
+1. **Ensure you have Java 17 or above installed** on your Computer.
+2. **Download the latest .jar file** from the releases page.
 3. **Copy the file to the folder** you want to use as the home folder for Zwee.
-4. **Open a command terminal**, `cd` into the folder you put the jar file in, and use the `java -jar zwee.jar` command to run the application.
+4. **Open a command terminal**, cd into the folder you put the jar file in, and use the `java -jar zwee.jar` command to run the application.
 
-   * A GUI should appear in a few seconds.
-5. **Type the command in the command box and press Enter** to execute it. e.g. typing `list` and pressing Enter will display your current tasks.
+A GUI should appear in a few seconds.
+
+5. **Type the command in the command box and press Enter** to execute it.
 
 **Some example commands you can try:**
 
@@ -22,8 +21,6 @@ Zwee is a **desktop app for managing tasks**, optimized for use via a Command Li
 * `archive 1` : Moves the 1st task from your active list to the archive.
 * `bye` : Exits the app.
 
-Refer to the **Features** below for details of each command.
-
 ---
 
 ## Features
@@ -31,13 +28,9 @@ Refer to the **Features** below for details of each command.
 > **Notes about the command format:**
 >
 > * Words in `UPPER_CASE` are the parameters to be supplied by the user.
->   * e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 > * Items with `/` before them are specific tags required for dates.
->   * e.g. `deadline DESCRIPTION /by DATE`
 > * Accepted date formats are `yyyy-MM-dd` (e.g., 2024-12-01), `d/M/yyyy`, and `d/M/yyyy HHmm`.
-> * Extraneous parameters for commands that do not take in parameters (such as `list`, `viewarchive`, and `bye`) will be ignored.
->   * e.g. if the command specifies `list 123`, it will be interpreted as `list`.
-> * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+> * Extraneous parameters for commands that do not take in parameters will be ignored.
 
 ### Adding a Todo : `todo`
 
@@ -83,13 +76,9 @@ Marks an existing task in the list as completed.
 
 **Format:** `mark INDEX`
 
-* Marks the task at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
-* The index **must be a positive integer** 1, 2, 3, …
-
 **Examples:**
 
-* `list` followed by `mark 2` marks the 2nd task in the list as done.
+* `mark 2` marks the 2nd task in the list as done.
 
 ### Unmarking a task : `unmark`
 
@@ -107,9 +96,6 @@ Finds tasks whose descriptions contain the given keyword.
 
 **Format:** `find KEYWORD`
 
-* The search is case-sensitive.
-* Only the description is searched.
-
 **Examples:**
 
 * `find book` returns `read book` and `return library book`
@@ -119,9 +105,6 @@ Finds tasks whose descriptions contain the given keyword.
 Deletes the specified task from the active list permanently.
 
 **Format:** `delete INDEX`
-
-* Deletes the task at the specified `INDEX`.
-* The index **must be a positive integer** 1, 2, 3, …
 
 **Examples:**
 
@@ -149,11 +132,9 @@ Moves a specified task from the archive back into your active list.
 
 **Format:** `unarchive INDEX`
 
-* The index refers to the index number shown when using the `viewarchive` command.
-
 **Examples:**
 
-* `viewarchive` followed by `unarchive 2` restores the 2nd archived task to your main list.
+* `unarchive 2` restores the 2nd archived task to your main list.
 
 ### Exiting the program : `bye`
 
@@ -171,8 +152,7 @@ Zwee data are saved in the hard disk automatically after any command that change
 
 Zwee data are saved automatically as text files at `[JAR file location]/data/zwee.txt` (active tasks) and `[JAR file location]/data/archive.txt` (archived tasks). Advanced users are welcome to update data directly by editing those data files.
 
-> **Caution:** If your changes to the data file make its format invalid (e.g., missing the `|` separators or using incorrect done flags), Zwee will discard the corrupted line or fail to load. Hence, it is recommended to take a backup of the file before editing it.
-> Edit the data file only if you are confident that you can update it correctly following the exact `TYPE | STATUS | DESCRIPTION | DATES` format.
+> **Caution:** If your changes to the data file make its format invalid, Zwee will discard the corrupted line or fail to load. Edit the data file only if you are confident that you can update it correctly.
 
 ---
 
@@ -183,23 +163,22 @@ Zwee data are saved automatically as text files at `[JAR file location]/data/zwe
 ## Known issues
 
 * When using multiple screens, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete any layout preference files created by the OS/application before running the application again.
-* If a date is formatted incorrectly outside of the accepted bounds, the application may default to treating it as a standard string or throw an error depending on the strictness of the date parser.
 
 ---
 
 ## Command summary
 
-| Action                 | Format, Examples                                                                                                       |
-| :--------------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| **Add Todo**     | `todo DESCRIPTION<br>`e.g., `todo read book`                                                                       |
-| **Add Deadline** | `deadline DESCRIPTION /by DATE<br>`e.g., `deadline submit report /by 2024-12-01`                                   |
-| **Add Event**    | `event DESCRIPTION /from START_DATE /to END_DATE<br>`e.g., `event project meeting /from 2024-12-01 /to 2024-12-02` |
-| **List**         | `list`                                                                                                               |
-| **Mark**         | `mark INDEX<br>`e.g., `mark 1`                                                                                     |
-| **Unmark**       | `unmark INDEX<br>`e.g., `unmark 1`                                                                                 |
-| **Find**         | `find KEYWORD<br>`e.g., `find book`                                                                                |
-| **Delete**       | `delete INDEX<br>`e.g., `delete 3`                                                                                 |
-| **Archive**      | `archive INDEX<br>`e.g., `archive 2`                                                                               |
-| **View Archive** | `viewarchive`                                                                                                        |
-| **Unarchive**    | `unarchive INDEX<br>`e.g., `unarchive 1`                                                                           |
-| **Exit**         | `bye`                                                                                                                |
+| Action                 | Format & Examples                                                                                                     |
+| :--------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| **Add Todo**     | `todo DESCRIPTION` (e.g., `todo read book`)                                                                       |
+| **Add Deadline** | `deadline DESCRIPTION /by DATE` (e.g., `deadline submit report /by 2024-12-01`)                                   |
+| **Add Event**    | `event DESCRIPTION /from START_DATE /to END_DATE` (e.g., `event project meeting /from 2024-12-01 /to 2024-12-02`) |
+| **List**         | `list`                                                                                                              |
+| **Mark**         | `mark INDEX` (e.g., `mark 1`)                                                                                     |
+| **Unmark**       | `unmark INDEX` (e.g., `unmark 1`)                                                                                 |
+| **Find**         | `find KEYWORD` (e.g., `find book`)                                                                                |
+| **Delete**       | `delete INDEX` (e.g., `delete 3`)                                                                                 |
+| **Archive**      | `archive INDEX` (e.g., `archive 2`)                                                                               |
+| **View Archive** | `viewarchive`                                                                                                       |
+| **Unarchive**    | `unarchive INDEX` (e.g., `unarchive 1`)                                                                           |
+| **Exit**         | `bye`                                                                                                               |
