@@ -20,7 +20,7 @@ public class UnarchiveCommand extends Command {
         List<Task> archivedItems = storage.loadArchive(ARCHIVE_PATH);
         
         if (oneBasedIndex < 1 || oneBasedIndex > archivedItems.size()) {
-            throw new ZweeException("Invalid archive index. Use 'viewarchive' to see available tasks.");
+            throw new ZweeException("Invalid archive index dear, please use 'viewarchive' to see available tasks.");
         }
 
         Task taskToRestore = archivedItems.remove(oneBasedIndex - 1);

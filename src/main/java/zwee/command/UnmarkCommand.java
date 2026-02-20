@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert oneBasedIndex > 0 : "Index should be positive";
+        assert oneBasedIndex > 0 : "Index should be positive luv";
         Task task = tasks.unmark(oneBasedIndex);
         storage.save(tasks);
         return ui.showTaskUnmarked(task);

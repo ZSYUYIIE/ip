@@ -1,3 +1,4 @@
+// AI Attribution: Stream API refactoring assisted by Claude Haiku 4.5
 package zwee.ui;
 import java.util.Scanner;
 import java.util.stream.IntStream;
@@ -59,6 +60,8 @@ public class Ui {
 
     /**
      * Displays the list of tasks to the user.
+     * Uses IntStream with functional operations for list formatting.
+     * AI: Claude Haiku 4.5 helped implement Stream API pattern with mapToObj and reduce.
      *
      * @param tasks The TaskList containing the tasks to be displayed.
      * @return A String representation of the task list.

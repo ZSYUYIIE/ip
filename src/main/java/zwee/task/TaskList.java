@@ -1,3 +1,4 @@
+// AI Attribution: Stream API refactoring assisted by Claude Haiku 4.5
 package zwee.task;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,6 @@ import zwee.ZweeException;
 /**
  * Represents a list of tasks.
  */
-
 public class TaskList {
 
     private final List<Task> tasks;
@@ -60,9 +60,11 @@ public class TaskList {
 
     /**
      * Finds tasks containing the given description.
+     * Uses Stream API for functional task filtering.
+     * AI: Claude Haiku 4.5 helped implement Stream API pattern with filter and collect.
      *
      * @param description The description to search for.
-     * @return A new TaskList containing matching tasks.
+     * @return A TaskList containing matching tasks.
      */
     public TaskList find(String description) {
         List<Task> foundTasks = tasks.stream()
@@ -80,7 +82,7 @@ public class TaskList {
      */
     public Task unmark(int oneBasedIndex) {
         int index = toZeroBasedIndex(oneBasedIndex);
-        assert index >= 0 && index < tasks.size() : "Index out of bounds";
+        assert index >= 0 && index < tasks.size() : "Index is out of bounds babe, watch out";
         Task task = tasks.get(index);
         task.unmark();
         return task;
@@ -99,7 +101,7 @@ public class TaskList {
      */
     public Task archive(int oneBasedIndex) {
         int index = toZeroBasedIndex(oneBasedIndex);
-        assert index >= 0 && index < tasks.size() : "Index out of bounds";
+        assert index >= 0 && index < tasks.size() : "Index out of bounds babe, watch out";
         Task task = tasks.get(index);
         task.archive();
         return task;
@@ -114,7 +116,7 @@ public class TaskList {
      */
     public Task unarchive(int oneBasedIndex) {
         int index = toZeroBasedIndex(oneBasedIndex);
-        assert index >= 0 && index < tasks.size() : "Index out of bounds";
+        assert index >= 0 && index < tasks.size() : "Index out of bounds babe, watch out";
         Task task = tasks.get(index);
         task.unarchive();
         return task;
@@ -151,7 +153,7 @@ public class TaskList {
     private int toZeroBasedIndex(int oneBasedIndex) {
         int index = oneBasedIndex - 1;
         if (index < 0 || index >= tasks.size()) {
-            throw new ZweeException("Please enter a valid task number between 1 and " + 
+            throw new ZweeException("Beware, enter a valid task number between 1 and " + 
             tasks.size() + ".");
         }
         return index;

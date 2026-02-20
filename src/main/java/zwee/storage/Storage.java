@@ -1,3 +1,4 @@
+// AI Attribution: Stream API refactoring assisted by Claude Haiku 4.5
 package zwee.storage;
 
 import java.util.ArrayList;
@@ -80,12 +81,15 @@ public class Storage {
 
     /**
      * Loads tasks from the storage file.
+     * Uses Stream API for functional file reading and task parsing.
+     * AI: Claude Haiku 4.5 helped implement Stream API pattern with br.lines() and Collectors.
      *
      * @return A list of tasks loaded from the file.
      */
     public List<Task> load() {
         assert this.file != null : "File should not be null";
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            // Stream API: br.lines() + filter() + map() + collect() for functional file processing
             List<Task> tasks = br.lines()
                     .filter(line -> !line.trim().isEmpty())
                     .map(Parser::parseStoredTask)
@@ -98,12 +102,15 @@ public class Storage {
 
     /**
      * Saves the given task list to the storage file.
+     * Uses Stream API for functional task serialization.
+     * AI: Claude Haiku 4.5 helped implement Stream API pattern with Collectors.joining().
      *
      * @param taskList The task list to be saved.
      */
     public void save(TaskList taskList) {
         assert taskList != null : "TaskList should not be null";
         try (FileWriter fw = new FileWriter(file)) {
+            // Stream API: stream() + map() + Collectors.joining() for functional file writing
             String output = taskList.getAll().stream()
                     .map(Task::toFileString)
                     .collect(Collectors.joining(System.lineSeparator(), "", System.lineSeparator()));
@@ -119,6 +126,8 @@ public class Storage {
 
     /**
      * Loads tasks from the archive file.
+     * Uses Stream API for functional file reading and task parsing.
+     * AI: Claude Haiku 4.5 helped implement Stream API pattern with br.lines() and Collectors.
      *
      * @param archivePath The path to the archive file.
      * @return A list of archived tasks.
@@ -141,6 +150,8 @@ public class Storage {
 
     /**
      * Overwrites the archive file with the given list of tasks.
+     * Uses Stream API for functional task serialization.
+     * AI: Claude Haiku 4.5 helped implement Stream API pattern with Collectors.joining().
      *
      * @param tasks The list of tasks to overwrite the archive with.
      * @param archivePath The path to the archive file.
@@ -148,6 +159,7 @@ public class Storage {
     public void overwriteArchive(List<Task> tasks, String archivePath) {
         File archiveFile = new File(archivePath);
         try (FileWriter fw = new FileWriter(archiveFile)) {
+            // Stream API: stream() + map() + Collectors.joining() for functional archive overwrite
             String output = tasks.stream()
                     .map(Task::toFileString)
                     .collect(Collectors.joining(System.lineSeparator(), "", System.lineSeparator()));
